@@ -4,7 +4,7 @@ import Header from './header';
 import List from './list';
 import Choices from './Choices';
 import Recipe from './Pick-recipe';
-import Sheader from "./secondHeader"
+import Sheader from './secondHeader';
 
 class App extends React.Component {
   state = {
@@ -12,16 +12,21 @@ class App extends React.Component {
       'pasta',
       'tomato',
       'mince',
+      'patty',
       'rice',
       'beans',
       'potato',
       'sugar',
       'bun',
       'fries',
+      'cheese',
+      'salmon',
+      'lime',
+      'sweet potato',
     ],
     recipes: {
       bolognese: ['pasta', 'tomato', 'mince'],
-      burger: ['mince', 'bun', 'fries'],
+      burger: ['patty', 'bun', 'fries'],
     },
 
     choices: [],
@@ -30,10 +35,9 @@ class App extends React.Component {
   selectRecipe = (recipe) => {
     const ingredientList = this.state.recipes[recipe];
     this.setState((currState) => {
-      const newState = { recipes: { [recipe]: ingredientList }};
-      console.log(newState)
+      const newState = { recipes: { [recipe]: ingredientList } };
+      console.log(newState);
       return newState;
-      
     });
   };
 
@@ -49,12 +53,22 @@ class App extends React.Component {
     });
   };
 
+  removeSelection = (itemToRemove) => {
+    this.setState((currState) => {
+      const newChoices = currState.choices.filter((choice) => {
+        return choice !== itemToRemove;
+      });
+      const newState = { choices: newChoices };
+      return newState;
+    });
+  };
+
   checkChoices = () => {
-    const recipeKey = Object.keys(this.state.recipes)
-    const chosenRecipe = recipeKey[0]
+    const recipeKey = Object.keys(this.state.recipes);
+    const chosenRecipe = recipeKey[0];
     if (
       JSON.stringify(this.state.choices) ===
-      JSON.stringify(this.state.recipes[chosenRecipe]) 
+      JSON.stringify(this.state.recipes[chosenRecipe])
     ) {
       this.setState((currState) => {
         const newMessage = 'Success';
@@ -72,7 +86,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <Header />
 
         <Recipe recipes={this.state.recipes} selectRecipe={this.selectRecipe} />
@@ -85,6 +99,7 @@ class App extends React.Component {
           choices={this.state.choices}
           checkChoices={this.checkChoices}
           message={this.state.message}
+          removeSelection={this.removeSelection}
         />
       </div>
     );

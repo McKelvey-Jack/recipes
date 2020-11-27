@@ -13,6 +13,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .ingredient {
@@ -21,10 +22,21 @@ header {
   margin: 0.5em;
   padding: 0.5em, 0;
 }
+
 .chosenRecipe {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.removeSelection {
+  margin-left: 1em;
+  background: none;
+  border: none;
+}
+
+.removeSelection:hover {
+  color: red;
 }
 .recipe {
   border: 1px solid black;
@@ -39,7 +51,7 @@ header {
   border-radius: 3px;
   margin: 0.5em;
   padding: 0.5em, 0;
-  margin-left: 29%;
+  margin-left: 37%;
   font-size: large;
 }
 
