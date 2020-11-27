@@ -1,25 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Header from './header';
+import List from './list';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    ingredients: [
+      'pasta',
+      'tomato',
+      'mince',
+      'rice',
+      'beans',
+      'potato',
+      'sugar',
+    ],
+    recipies: { bolognese: ['pasta', 'tomato', 'mince'] },
+    choices: [],
+  };
+
+  addIngredient = (ingredient) => {
+    this.setState((currState) => {
+      const newChoices = [...currState.choices];
+      newChoices.push(ingredient);
+      console.log(newChoices);
+      const newState = {
+        choices: newChoices,
+      };
+      console.log(newState);
+      return newState;
+    });
+  };
+
+  render() {
+    console.log(this.state.choices);
+    return (
+      <div className="App">
+        <Header />
+        <List
+          ingredients={this.state.ingredients}
+          addIngredient={this.addIngredient}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
