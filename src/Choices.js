@@ -2,10 +2,10 @@ const Choices = (props) => {
     return (
     <ul>
       {props.choices.map((choice) => {
-        return <li key={choice}>{choice}</li>;
+        return <li className="itemsList" key={choice}>{choice}</li>;
       })}
-      <button onClick={() => props.checkChoices()}>Submit Ingredients</button>
-      <p>{props.message}</p>
+      <button className="submit" onClick={() => props.checkChoices()}>Submit Ingredients</button>
+      <p className="msg">{props.message}</p>
     </ul>
   );
 };

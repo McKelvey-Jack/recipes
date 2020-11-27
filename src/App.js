@@ -4,6 +4,7 @@ import Header from './header';
 import List from './list';
 import Choices from './Choices';
 import Recipe from './Pick-recipe';
+import Sheader from "./secondHeader"
 
 class App extends React.Component {
   state = {
@@ -15,12 +16,12 @@ class App extends React.Component {
       'beans',
       'potato',
       'sugar',
-      'brioche bun',
+      'bun',
       'fries',
     ],
     recipes: {
       bolognese: ['pasta', 'tomato', 'mince'],
-      burger: ['mince', 'brioche bun', 'fries'],
+      burger: ['mince', 'bun', 'fries'],
     },
 
     choices: [],
@@ -74,6 +75,8 @@ class App extends React.Component {
       <div className='App'>
         <Header />
 
+        <Recipe recipes={this.state.recipes} selectRecipe={this.selectRecipe} />
+        <Sheader />
         <List
           ingredients={this.state.ingredients}
           addIngredient={this.addIngredient}
@@ -83,7 +86,6 @@ class App extends React.Component {
           checkChoices={this.checkChoices}
           message={this.state.message}
         />
-        <Recipe recipes={this.state.recipes} selectRecipe={this.selectRecipe} />
       </div>
     );
   }
