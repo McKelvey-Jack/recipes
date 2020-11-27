@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import Header from './header';
 import List from './list';
+import Choices from './Choices';
+import Recipe from './Pick-recipe';
 
 class App extends React.Component {
   state = {
@@ -13,33 +15,75 @@ class App extends React.Component {
       'beans',
       'potato',
       'sugar',
+      'brioche bun',
+      'fries',
     ],
-    recipies: { bolognese: ['pasta', 'tomato', 'mince'] },
+    recipes: {
+      bolognese: ['pasta', 'tomato', 'mince'],
+      burger: ['mince', 'brioche bun', 'fries'],
+    },
+
     choices: [],
+    message: '',
+  };
+  selectRecipe = (recipe) => {
+    const ingredientList = this.state.recipes[recipe];
+    this.setState((currState) => {
+      const newState = { recipes: { [recipe]: ingredientList }};
+      console.log(newState)
+      return newState;
+      
+    });
   };
 
   addIngredient = (ingredient) => {
+    if (this.state.choices.includes(ingredient)) return null;
     this.setState((currState) => {
       const newChoices = [...currState.choices];
       newChoices.push(ingredient);
-      console.log(newChoices);
       const newState = {
         choices: newChoices,
       };
-      console.log(newState);
       return newState;
     });
   };
 
+  checkChoices = () => {
+    const recipeKey = Object.keys(this.state.recipes)
+    const chosenRecipe = recipeKey[0]
+    if (
+      JSON.stringify(this.state.choices) ===
+      JSON.stringify(this.state.recipes[chosenRecipe]) 
+    ) {
+      this.setState((currState) => {
+        const newMessage = 'Success';
+        const newState = { message: newMessage };
+        return newState;
+      });
+    } else {
+      this.setState((currState) => {
+        const newMessage = 'Try Again';
+        const newState = { message: newMessage };
+        return newState;
+      });
+    }
+  };
+
   render() {
-    console.log(this.state.choices);
     return (
-      <div className="App">
+      <div className='App'>
         <Header />
+
         <List
           ingredients={this.state.ingredients}
           addIngredient={this.addIngredient}
         />
+        <Choices
+          choices={this.state.choices}
+          checkChoices={this.checkChoices}
+          message={this.state.message}
+        />
+        <Recipe recipes={this.state.recipes} selectRecipe={this.selectRecipe} />
       </div>
     );
   }

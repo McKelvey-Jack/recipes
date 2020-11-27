@@ -1,5 +1,4 @@
 const List = (props) => {
-  console.log(props.ingredients);
   return props.ingredients.map((ingredient) => {
     return (
       <button
